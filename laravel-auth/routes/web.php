@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('posts',PostController::class)->parameters([
         'posts' => 'post:slug'
-    ])->withTrashed();
+    ])->withTrashed(['show','update','edit', 'destroy']);
 });
 
 require __DIR__.'/auth.php';
