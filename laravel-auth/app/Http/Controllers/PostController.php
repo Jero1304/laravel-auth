@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::withTrashed()->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -44,7 +44,7 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
-        return to_route('posts.show',$post);
+        return to_route('posts.show', $post);
     }
 
     /**
@@ -80,7 +80,24 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->validated();
+
+        if ($data['title'] !== $post->title) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
+        $post->update($data);
+
+        return to_route('posts.show', $post);
+
+    }
+
+    public function restore(Post $post)
+    {
+        if ($post->trashed()) {
+            $post->restore();
+        }
+        return back();
     }
 
     /**
