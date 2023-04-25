@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -37,7 +38,13 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $data['slug'] = Str::slug($data['title']);
+
+        $post = Post::create($data);
+
+        return to_route('posts.show',$post);
     }
 
     /**

@@ -7,7 +7,7 @@
 
 
             <div>
-                <a class="btn btn-primary" herf="{{ route('posts.create') }}">Nuovo Post</a>
+                <a class="btn btn-primary" href="{{ route('posts.create') }}">Nuovo Post</a>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </td>
                         <td>{{ $post->slug }}</td>
-                        <td>{{ $post->creatrd_at }}</td>
+                        <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
                         <td>
                             <div class="d-flex">
