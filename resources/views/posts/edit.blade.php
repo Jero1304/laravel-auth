@@ -33,6 +33,25 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                <label for="category_id" class="form-label">Categoria</label>
+                <select class="form-select" @error('category_id') is_invalid @enderror id="category_id" name="category_id"
+                    aria-label="Default select example">
+                    <option value="" selected>seleziona categoria</option>
+                    @foreach ($categories as $category)
+                        <option @selected(old('category_id', $post->category_id) == $category->id) value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                {{-- errore title --}}
+                @error('title')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-success">Save</button>
         </form>
     </div>

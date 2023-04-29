@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use illuminate\Support\Str;
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::orderBy('name','asc')->get();
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -40,6 +42,8 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
+        // dd($request->all());
+        
         $data['slug'] = Str::slug($data['title']);
 
         $post = Post::create($data);
@@ -67,7 +71,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::orderBy('name','asc')->get();
+
+        return view('posts.edit', compact('post','categories'));
 
     }
 

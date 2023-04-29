@@ -18,6 +18,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>category</th>
                     <th>Slug</th>
                     <th>Data creazione</th>
                     <th>Data Modifica</th>
@@ -32,13 +33,15 @@
                         <td>
                             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                         </td>
+
+                        <td>{{$post->category ? $post->category->name : '-'}}</td>
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
                         <td>{{ $post->trashed() ? 'Eliminato il: ' . $post->deleted_at : '' }}</td>
                         <td>
                             <div class="d-flex">
-                            
+
                                 <a class="btn btn-sm btn-secondary" href="{{ route('posts.edit', $post) }}">Edit</a>
 
                                 <form action="{{ route('posts.destroy', $post) }}" method="POST">
